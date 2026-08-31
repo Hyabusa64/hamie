@@ -16,4 +16,4 @@ pytest>=8.0
 pytest-asyncio>=0.24
 PyYAML>=6.0
 aiohttp>=3.10
-voluptuous>=0.14
+voluptuous>=0.16.0
