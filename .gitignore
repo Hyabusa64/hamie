@@ -1,0 +1,28 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+
+
+# ---------------------------------------------------------------------------
+# Home Assistant .storage captures.
+#
+# A raw core.config_entries carries every integration credential in the house
+# in cleartext; this repository has already committed two of them once. Raw
+# captures are ignored by default and must be run through
+# tools/sanitize_ha_snapshot.py before being added deliberately with
+# `git add -f` and listed in tools/reviewed_snapshots.txt.
+# ---------------------------------------------------------------------------
+.storage/
+**/.storage/
+core.config_entries
+core.auth*
+core.restore_state
+onboarding
+auth_provider.*
+**/*.storage.json
+*_raw_snapshot.json
+secrets.yaml
+
+# Generated per build by tools/build_deploy.py -- never committed.
+hamie/build_info.json

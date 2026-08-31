@@ -1,0 +1,32 @@
+/**
+ * HAMIE UI 3.0 — motion tokens.
+ *
+ * Figma's motion is minimal: implicit Tailwind `transition-colors`
+ * (150ms, default easing) on nearly every interactive element, plus one
+ * explicit "stroke-dasharray 0.8s ease" on the HealthArc score fill.
+ *
+ * --ha-animation-duration-* was verified ABSENT at the HA 2025.8.0 floor
+ * and present on 2026.7 (values read directly from the installed
+ * frontend bundle: fast=.15s, normal=.25s, slow=.35s) — fallbacks below
+ * use those exact real values, not guesses.
+ *
+ * `prefers-reduced-motion` is handled once here so every component that
+ * consumes these tokens gets it for free, rather than each component
+ * re-implementing the media query — required for the accessibility pass
+ * regardless of Figma (which has no reduced-motion handling at all).
+ */
+
+:host {
+  --hamie-motion-fast: var(--ha-animation-duration-fast, 0.15s);
+  --hamie-motion-normal: var(--ha-animation-duration-normal, 0.25s);
+  --hamie-motion-slow: var(--ha-animation-duration-slow, 0.35s);
+  --hamie-motion-ease: ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    --hamie-motion-fast: 1ms;
+    --hamie-motion-normal: 1ms;
+    --hamie-motion-slow: 1ms;
+  }
+}

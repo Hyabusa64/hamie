@@ -1,0 +1,8 @@
+# NOTE: the security-advisories URL below must be updated to this repo's
+# actual owner/name once it exists publicly (GitHub does not support a
+# relative or templated URL here).
+blank_issues_enabled: true
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/OWNER/REPO/security/advisories/new
+    about: Please report suspected vulnerabilities privately — see SECURITY.md — not as a public issue.

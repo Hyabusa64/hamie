@@ -1,0 +1,47 @@
+/**
+ * HAMIE UI 3.0 — spacing & radius tokens.
+ *
+ * --ha-space-* and --ha-border-radius-* were verified ABSENT from the HA
+ * 2025.8.0 floor's frontend bundle (checked directly against the installed
+ * hass_frontend package) and present in the 2026.7 current-target bundle —
+ * they were introduced by Home Assistant in a later release. Every use
+ * below therefore carries an explicit var() fallback, using the exact
+ * literal pixel values HA itself assigns to these tokens on newer
+ * releases (also read directly out of the installed frontend bundle, not
+ * guessed), so the floor lane renders identically to what the token would
+ * have produced.
+ *
+ * Fallback values only ever apply on HA < the release that introduced
+ * these tokens; on any HA that has them, the real token wins and the
+ * design progressively enhances (e.g. respects the user's density theme
+ * setting, if HA ever exposes one through these tokens).
+ */
+
+:host {
+  --hamie-space-1: var(--ha-space-1, 4px);
+  --hamie-space-2: var(--ha-space-2, 8px);
+  --hamie-space-3: var(--ha-space-3, 12px);
+  --hamie-space-4: var(--ha-space-4, 16px);
+  --hamie-space-5: var(--ha-space-5, 20px);
+  --hamie-space-6: var(--ha-space-6, 24px);
+  --hamie-space-7: var(--ha-space-7, 28px);
+  --hamie-space-8: var(--ha-space-8, 32px);
+
+  /* Figma's fussier sub-token gaps (2px, 6px, 10px) have no HA equivalent
+   * at any scale step; kept as literals since there is nothing to map to. */
+  --hamie-space-half: 2px;
+  --hamie-space-1-5: 6px;
+  --hamie-space-2-5: 10px;
+
+  --hamie-radius-sm: var(--ha-border-radius-sm, 4px);
+  --hamie-radius-md: var(--ha-border-radius-md, 8px);
+  --hamie-radius-lg: var(--ha-border-radius-lg, 12px);
+  --hamie-radius-pill: var(--ha-border-radius-pill, 9999px);
+  --hamie-radius-circle: var(--ha-border-radius-circle, 50%);
+
+  /* Fixed layout dimensions carried over exactly from Figma (App.tsx) */
+  --hamie-sidebar-width: var(--ha-sidebar-width, 196px);
+  --hamie-content-max-narrow: 42rem;  /* Settings: max-w-2xl */
+  --hamie-content-max-medium: 56rem;  /* Recommendations: max-w-4xl */
+  --hamie-content-max-wide: 64rem;    /* Overview/Health/AI/Findings/Dependencies: max-w-5xl */
+}
