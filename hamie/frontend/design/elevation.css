@@ -1,0 +1,23 @@
+/**
+ * HAMIE UI 3.0 — elevation tokens.
+ *
+ * Figma's primary elevation method is NOT shadows — it's a flat card
+ * (`bg-[#1a1d24] border border-white/[0.06]`) with opacity-layered
+ * backgrounds for hover/active states. Real box-shadows appear exactly
+ * twice: the sidebar logo mark (`shadow-lg shadow-blue-600/30`) and the
+ * chart tooltip popover (`shadow-xl`). This token file reflects that same
+ * restraint — most surfaces should use --hamie-border-* from tokens.css,
+ * not a shadow, to stay faithful to the flat/bordered look.
+ *
+ * --ha-box-shadow-* was verified ABSENT at the HA 2025.8.0 floor and
+ * present on 2026.7. Its value is theme-conditional (HA defines different
+ * numbers for light/dark), so no single "real value" fallback exists to
+ * copy; the fallback below is a neutral, theme-agnostic approximation
+ * used only pre-introduction of the token.
+ */
+
+:host {
+  --hamie-elevation-card: none; /* cards are flat + bordered, not shadowed */
+  --hamie-elevation-popover: var(--ha-box-shadow-m, 0 3px 6px -1px rgba(0, 0, 0, 0.15), 0 8px 16px -2px rgba(0, 0, 0, 0.2));
+  --hamie-elevation-accent: var(--ha-box-shadow-s, 0 1px 2px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.15));
+}

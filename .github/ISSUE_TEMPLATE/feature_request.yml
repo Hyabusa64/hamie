@@ -1,0 +1,27 @@
+name: Feature request
+description: Suggest something HAMIE doesn't do yet
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What are you trying to do that HAMIE currently doesn't support?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed approach
+      description: If you have one in mind. Not required.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety boundary
+      description: See docs/AI_ACCESS_LAYER.md and CONTRIBUTING.md.
+      options:
+        - label: This does not require an AI provider to gain a mutation, execution, or shell capability it doesn't already have.

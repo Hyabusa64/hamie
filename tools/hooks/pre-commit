@@ -1,0 +1,17 @@
+#!/bin/sh
+# HAMIE pre-commit secret guard.
+# Install with:  ln -sf ../../tools/hooks/pre-commit .git/hooks/pre-commit
+#
+# Deliberately scans the *staged* tree rather than the worktree, so a secret
+# cannot ride in on a file the author forgot they had staged.
+set -e
+root=$(git rev-parse --show-toplevel)
+tmp=$(mktemp -d)
+trap 'rm -rf "$tmp"' EXIT
+git checkout-index -a -f --prefix="$tmp/"
+if ! python3 "$root/tools/secret_scan.py" --root "$tmp" --all; then
+    echo
+    echo "pre-commit: credential material detected in staged content."
+    echo "Sanitize with tools/sanitize_ha_snapshot.py, or unstage the file."
+    exit 1
+fi

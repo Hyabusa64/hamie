@@ -1,0 +1,16 @@
+{
+  "name": "hamie-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "license": "Apache-2.0",
+  "description": "Build pipeline for the HAMIE Home Assistant custom-panel frontend. Reconstructed this session: the committed hamie/frontend/dist/hamie-app.js bundle referenced esbuild via its own header comment (\"bundled by npm run build:frontend (esbuild, see package.json)\") but no package.json, lockfile, or node_modules existed anywhere in the repository -- only the built output was ever committed. This file, its lockfile, and node_modules are the reconstructed pipeline, not a prior artifact.",
+  "scripts": {
+    "build:frontend": "esbuild hamie/frontend/hamie-app.js --bundle --format=esm --outfile=hamie/frontend/dist/hamie-app.js --loader:.css=text"
+  },
+  "devDependencies": {
+    "esbuild": "^0.24.0"
+  },
+  "dependencies": {
+    "lit": "^3.2.0"
+  }
+}
