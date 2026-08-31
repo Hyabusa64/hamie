@@ -8,7 +8,7 @@
     "build:frontend": "esbuild hamie/frontend/hamie-app.js --bundle --format=esm --outfile=hamie/frontend/dist/hamie-app.js --loader:.css=text"
   },
   "devDependencies": {
-    "esbuild": "^0.24.0"
+    "esbuild": "^0.28.2"
   },
   "dependencies": {
     "lit": "^3.2.0"
