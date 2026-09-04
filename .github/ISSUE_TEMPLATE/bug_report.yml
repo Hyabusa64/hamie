@@ -1,0 +1,54 @@
+name: Bug report
+description: Something in HAMIE isn't working as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Before you submit:** please check any log excerpt, diagnostics
+        export, or `.storage` snapshot you're about to paste in for real
+        credentials, tokens, IP addresses, or entity names you don't want
+        public. See [SECURITY.md](../../SECURITY.md) for why this matters
+        and how to sanitize one. Genericize entity ids and hostnames the
+        way this project's own fixtures do (e.g. `switch.example_plug`,
+        `192.0.2.10`) rather than pasting your real ones.
+
+  - type: input
+    id: hamie-version
+    attributes:
+      label: HAMIE version
+      placeholder: "0.6.0-beta.1"
+    validations:
+      required: true
+
+  - type: input
+    id: ha-version
+    attributes:
+      label: Home Assistant version
+      placeholder: "2026.8.x"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you expected instead, and what actually happened.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log excerpt (sanitized)
+      description: Home Assistant log lines mentioning `hamie`, with anything private removed.
+      render: text
+    validations:
+      required: false

@@ -1,0 +1,533 @@
+{
+  "title": "HAMIE",
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up HAMIE",
+        "description": "Create the local, read-only HAMIE integration.",
+        "data": {}
+      }
+    },
+    "abort": {
+      "already_configured": "HAMIE is already configured."
+    }
+  },
+  "entity": {
+    "button": {
+      "run_scan": {
+        "name": "Run HAMIE Scan"
+      },
+      "previous_finding": {
+        "name": "Previous Finding"
+      },
+      "next_finding": {
+        "name": "Next Finding"
+      },
+      "acknowledge_finding": {
+        "name": "Acknowledge Selected Finding"
+      },
+      "dismiss_finding": {
+        "name": "Dismiss Selected Finding"
+      },
+      "snooze_finding": {
+        "name": "Snooze Selected Finding for 24 Hours"
+      },
+      "retain_finding": {
+        "name": "Retain Selected Finding"
+      },
+      "analyze_selected_finding": {
+        "name": "Analyze Selected Finding"
+      },
+      "analyze_selected_group": {
+        "name": "Analyze Selected Group"
+      },
+      "analyze_highest_priority": {
+        "name": "Analyze Highest Priority"
+      },
+      "refresh_ai_explanation": {
+        "name": "Refresh AI Explanation"
+      }
+    },
+    "sensor": {
+      "availability_health": {
+        "name": "Availability Health"
+      },
+      "open_findings": {
+        "name": "Open Findings"
+      },
+      "warning_findings": {
+        "name": "Warning Findings"
+      },
+      "critical_findings": {
+        "name": "Critical Findings"
+      },
+      "last_scan": {
+        "name": "Last Scan"
+      },
+      "scan_status": {
+        "name": "Scan Status",
+        "state": {
+          "never_run": "Never run",
+          "running": "Running",
+          "completed": "Completed",
+          "failed": "Failed",
+          "cancelled": "Cancelled"
+        }
+      },
+      "scan_duration": {
+        "name": "Scan Duration"
+      },
+      "entities_scanned": {
+        "name": "Entities Scanned"
+      },
+      "unavailable_entities": {
+        "name": "Unavailable Entities"
+      },
+      "generation": {
+        "name": "Generation"
+      },
+      "projection_revision": {
+        "name": "Projection Revision"
+      },
+      "store_size": {
+        "name": "Store Size"
+      },
+      "new_findings": {
+        "name": "New Findings"
+      },
+      "resolved_findings": {
+        "name": "Resolved Findings"
+      },
+      "selected_finding": {
+        "name": "Selected Finding"
+      },
+      "ollama_status": {
+        "name": "AI Provider Status",
+        "state": {
+          "disabled": "Disabled",
+          "unknown": "Not tested since restart",
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "error": "Error"
+        }
+      },
+      "n8n_status": {
+        "name": "n8n Status",
+        "state": {
+          "disabled": "Disabled",
+          "unknown": "Not tested since restart",
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "error": "Error"
+        }
+      },
+      "mcp_status": {
+        "name": "MCP Status",
+        "state": {
+          "disabled": "Disabled",
+          "unknown": "Not tested since restart",
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "error": "Error"
+        }
+      },
+      "hkg_status": {
+        "name": "HKG Status",
+        "state": {
+          "disabled": "Disabled",
+          "unknown": "Not tested since restart",
+          "healthy": "Healthy",
+          "degraded": "Degraded",
+          "error": "Error"
+        }
+      },
+      "last_ai_analysis": {
+        "name": "Last AI Analysis"
+      },
+      "pending_ai_recommendations": {
+        "name": "Pending AI Recommendations"
+      },
+      "last_connector_error": {
+        "name": "Last Connector Error"
+      }
+    }
+  },
+  "issues": {
+    "unavailable_entity": {
+      "title": "Entity is unavailable",
+      "description": "{entity_id} remains unavailable after HAMIE's transient grace period. Review the entity and its providing integration. HAMIE will not change or remove it."
+    },
+    "storage_recovery_required": {
+      "title": "HAMIE saved state needs attention",
+      "description": "HAMIE could not safely read its saved state ({reason_code}). Restore a compatible backup or remove and add HAMIE again. No scan or Home Assistant object change was attempted."
+    }
+  },
+  "options": {
+    "abort": {
+      "options_saved": "HAMIE options were saved securely."
+    },
+    "step": {
+      "general": {
+        "title": "General",
+        "description": "Configure the conservative runtime, finite startup scan, bounded history, and default Explorer presentation.",
+        "data": {
+          "runtime_profile": "Runtime profile",
+          "initial_scan_enabled": "Run one initial scan",
+          "initial_scan_delay": "Initial scan delay (seconds)",
+          "maximum_audit_records": "Maximum audit records",
+          "maximum_ai_recommendations": "Maximum AI recommendations",
+          "maximum_projected_groups": "Maximum projected groups",
+          "default_findings_sort": "Default findings sort",
+          "default_findings_page_size": "Default findings page size",
+          "default_suppression_visibility": "Default suppression visibility",
+          "sidebar_panel_enabled": "Sidebar panel enabled"
+        }
+      },
+      "provenance": {
+        "title": "Source and Deployment",
+        "description": "Configure explicit engineering roles. HAMIE never chooses a source repository by timestamp or discovery order.",
+        "data": {
+          "authoritative_source_repository": "Authoritative source repository",
+          "deployment_target": "Deployment target",
+          "optional_remote_development_hosts": "Optional remote development hosts",
+          "deployment_adapter_mode": "Deployment adapter mode"
+        }
+      },
+      "findings": {
+        "title": "Findings",
+        "description": "Configure future scan and presentation policy. Existing findings are not rewritten.",
+        "data": {
+          "duplicate_collapsing_enabled": "Collapse duplicate findings",
+          "default_severity_filters": "Default severity filters",
+          "default_lifecycle_filters": "Default lifecycle filters",
+          "show_suppressed_findings_by_default": "Show suppressed findings by default",
+          "show_snoozed_findings_by_default": "Show snoozed findings by default",
+          "minimum_finding_age_seconds": "Minimum finding age before reporting",
+          "transient_unavailable_grace_seconds": "Transient unavailable grace period",
+          "include_diagnostic_entities": "Include diagnostic entities",
+          "include_disabled_entities": "Include disabled entities",
+          "exclude_hamie_owned_entities": "Exclude HAMIE-owned entities (locked)",
+          "maximum_evidence_items_displayed": "Maximum evidence items displayed",
+          "maximum_supporting_objects_displayed": "Maximum supporting objects displayed"
+        }
+      },
+      "grouping": {
+        "title": "Grouping",
+        "description": "Configure fixed deterministic dimensions and declarative exact-match rules only.",
+        "data": {
+          "enabled_grouping_dimensions": "Enabled grouping dimensions",
+          "primary_grouping_preference": "Primary grouping preference",
+          "minimum_group_size": "Minimum group size",
+          "maximum_visible_group_members": "Maximum visible group members",
+          "grouping_confidence_threshold": "Grouping confidence threshold",
+          "collapse_common_mobile_app_findings": "Collapse common mobile-app findings",
+          "collapse_same_device_unavailable_entities": "Collapse same-device unavailable entities",
+          "collapse_same_integration_failures": "Collapse same-integration failures",
+          "user_defined_grouping_rules": "User-defined declarative grouping rules (JSON)"
+        }
+      },
+      "findings_grouping": {
+        "title": "Findings and Grouping",
+        "description": "Configure only implemented deterministic grouping dimensions. Values are comma-separated identifiers, never executable expressions.",
+        "data": {
+          "enabled_grouping_dimensions": "Enabled grouping dimensions",
+          "primary_grouping_preference": "Primary grouping preference",
+          "duplicate_collapsing_enabled": "Collapse duplicate findings",
+          "maximum_visible_group_members": "Maximum visible group members",
+          "default_priority_sort": "Default priority sort",
+          "grouping_confidence_threshold": "Grouping confidence threshold",
+          "selected_user_defined_grouping_rules": "Selected user-defined grouping rule IDs"
+        }
+      },
+      "suppression_rules": {
+        "title": "Suppression Rules",
+        "description": "List, preview, create, edit, enable, disable, or delete declarative HAMIE-only policies.",
+        "menu_options": {
+          "suppression_list": "List rules",
+          "suppression_create": "Create rule",
+          "suppression_edit": "Edit rule",
+          "suppression_toggle": "Enable or disable rule",
+          "suppression_delete": "Delete rule"
+        }
+      },
+      "suppression_list": {
+        "title": "Existing Suppression Rules",
+        "description": "{rules}",
+        "data": {}
+      },
+      "suppression_create": {
+        "title": "Create Suppression Rule",
+        "description": "Define one declarative matcher. Creation requires a separate exact-count preview and confirmation.",
+        "data": {
+          "name": "Rule name",
+          "matcher_field": "Matcher field",
+          "matcher_value": "Exact matcher value",
+          "reason": "Reason",
+          "action": "Action",
+          "expiration": "Expiration (timezone-aware ISO timestamp)"
+        }
+      },
+      "suppression_confirm": {
+        "title": "Confirm Suppression Rule",
+        "description": "This rule matches exactly {match_count} findings. Action: {action}. Expiration: {expiration}. HAMIE will not modify Home Assistant objects.",
+        "data": {
+          "confirm": "Create this exact rule"
+        }
+      },
+      "suppression_edit": {
+        "title": "Edit Suppression Rule",
+        "description": "Current matcher: {matcher}. Current exact match count: {match_count}.",
+        "data": {
+          "rule_id": "Rule",
+          "enabled": "Enabled",
+          "reason": "Reason",
+          "action": "Action",
+          "expiration": "Expiration (timezone-aware ISO timestamp)"
+        }
+      },
+      "suppression_toggle": {
+        "title": "Enable or Disable Suppression Rule",
+        "description": "Confirm the selected rule's enabled state change.",
+        "data": {
+          "rule_id": "Rule",
+          "confirm": "Confirm state change"
+        }
+      },
+      "suppression_delete": {
+        "title": "Delete Suppression Rule",
+        "description": "Delete only the HAMIE policy. Findings and Home Assistant objects are preserved.",
+        "data": {
+          "rule_id": "Rule",
+          "confirm": "Confirm deletion"
+        }
+      },
+      "ollama": {
+        "title": "Ollama / OpenAI-Compatible LLM",
+        "description": "Optional advisory AI, disabled by default. Connection result: {connection_result}. Leave the API key blank and choose keep to retain it.",
+        "data": {
+          "ollama_enabled": "Enabled",
+          "ollama_provider_type": "Provider type",
+          "ollama_base_url": "Base URL",
+          "ollama_model": "Model",
+          "ollama_api_key": "API key",
+          "ollama_credential_action": "API key action",
+          "ollama_confirm_remove_credential": "Confirm API key removal",
+          "ollama_timeout": "Timeout",
+          "ollama_maximum_input_characters": "Maximum input characters",
+          "ai_maximum_advisory_groups_per_run": "Maximum advisory groups per run",
+          "ai_maximum_findings_per_group": "Maximum findings per advisory group",
+          "ai_maximum_estimated_tokens": "Maximum estimated input tokens",
+          "ai_minimum_confidence_threshold": "Minimum advisory confidence",
+          "ollama_maximum_output_tokens": "Maximum output tokens",
+          "ollama_temperature": "Temperature",
+          "ollama_verify_tls": "Verify TLS",
+          "ollama_capabilities": "Allowed advisory capabilities",
+          "ollama_allowed_hosts": "Allowed hosts",
+          "ollama_approve_host": "Allow this private or local host",
+          "ollama_approve_remote_host": "Allow this remote host",
+          "ollama_automatic_analysis": "Automatic analysis",
+          "ollama_analyze_findings": "Analyze findings",
+          "ollama_analyze_groups": "Analyze groups",
+          "ollama_prioritize_findings": "Prioritize findings",
+          "ollama_suggest_troubleshooting_checks": "Suggest troubleshooting checks",
+          "ollama_suggest_non_executing_repair_plans": "Suggest non-executing repair plans",
+          "ollama_automatic_event_types": "Selected automatic event types",
+          "connector_action": "Action"
+        }
+      },
+      "n8n": {
+        "title": "n8n",
+        "description": "Optional finite webhook connector. Inbound endpoint: {inbound_endpoint}. Supported commands: {supported_inbound_commands}. Supported events: {supported_outbound_events}. Result: {connection_result}.",
+        "data": {
+          "n8n_enabled": "Enabled",
+          "n8n_base_url": "Base URL",
+          "n8n_outbound_webhook_url": "Outbound webhook URL",
+          "n8n_authentication_type": "Outbound authentication type",
+          "n8n_username": "Username",
+          "n8n_outbound_credential": "Outbound API key / password",
+          "n8n_outbound_credential_action": "Outbound credential action",
+          "n8n_outbound_confirm_remove_credential": "Confirm outbound credential removal",
+          "n8n_inbound_credential": "Inbound shared secret / token",
+          "n8n_inbound_credential_action": "Inbound credential action",
+          "n8n_inbound_confirm_remove_credential": "Confirm inbound credential removal",
+          "n8n_inbound_confirm_regenerate_credential": "Confirm shared-secret regeneration",
+          "n8n_timeout": "Timeout",
+          "n8n_verify_tls": "Verify TLS",
+          "n8n_selected_events": "Selected events",
+          "n8n_inbound_commands_enabled": "Enable authenticated inbound commands",
+          "n8n_inbound_authentication_mode": "Inbound authentication mode",
+          "n8n_retry_count": "Retry count",
+          "n8n_retry_backoff": "Retry backoff",
+          "n8n_maximum_payload_size": "Maximum payload size",
+          "n8n_allowed_hosts": "Allowed hosts",
+          "n8n_approve_host": "Allow this private or local host",
+          "n8n_approve_remote_host": "Allow this remote host",
+          "connector_action": "Action"
+        }
+      },
+      "mcp": {
+        "title": "Home Assistant MCP",
+        "description": "Optional read-only evidence connector. Allowlist: {mcp_allowlist}. Discovered and accepted: {accepted_capabilities}. Discovered and rejected: {rejected_capabilities}. Result: {connection_result}.",
+        "data": {
+          "mcp_enabled": "Enabled",
+          "mcp_endpoint": "Endpoint",
+          "mcp_authentication_type": "Authentication type",
+          "mcp_credential": "Credential",
+          "mcp_credential_action": "Credential action",
+          "mcp_confirm_remove_credential": "Confirm credential removal",
+          "mcp_mode": "Mode",
+          "mcp_timeout": "Timeout",
+          "mcp_verify_tls": "Verify TLS",
+          "mcp_allowed_hosts": "Allowed hosts",
+          "mcp_approve_host": "Allow this private or local host",
+          "mcp_approve_remote_host": "Allow this remote host",
+          "connector_action": "Action"
+        }
+      },
+      "hkg": {
+        "title": "House Knowledge Graph",
+        "description": "Optional query-only attributed relationship connector. Result: {connection_result}.",
+        "data": {
+          "hkg_enabled": "Enabled",
+          "hkg_endpoint": "Endpoint",
+          "hkg_authentication_type": "Authentication type",
+          "hkg_credential": "Credential",
+          "hkg_credential_action": "Credential action",
+          "hkg_confirm_remove_credential": "Confirm credential removal",
+          "hkg_mode": "Mode",
+          "hkg_timeout": "Timeout",
+          "hkg_verify_tls": "Verify TLS",
+          "hkg_allowed_hosts": "Allowed hosts",
+          "hkg_approve_host": "Allow this private or local host",
+          "hkg_approve_remote_host": "Allow this remote host",
+          "hkg_maximum_subjects": "Maximum subjects per request",
+          "hkg_maximum_relationships": "Maximum relationships per response",
+          "hkg_cache_duration": "Cache duration (seconds)",
+          "connector_action": "Action"
+        }
+      },
+      "connector_status": {
+        "title": "Connector Status",
+        "description": "{statuses}",
+        "data": {}
+      },
+      "test_connections": {
+        "title": "Test Connections",
+        "description": "Run one explicit bounded connector test without changing enabled state or saved options. Latest result: {latest_result}",
+        "data": {
+          "connector_id": "Connector"
+        }
+      },
+      "safety": {
+        "title": "Safety",
+        "description": "These Phase 0 safety policies are enforced and locked.",
+        "data": {
+          "read_only_mode": "Read-only mode",
+          "explicit_approval_required": "Explicit approval required",
+          "automatic_execution": "Automatic execution",
+          "ai_self_approval": "AI self-approval",
+          "n8n_self_approval": "n8n self-approval",
+          "mcp_writes": "MCP writes",
+          "automatic_deletion": "Automatic deletion",
+          "automatic_repair": "Automatic repair"
+        }
+      },
+      "audit": {
+        "title": "Audit",
+        "description": "Configure bounded retention and future event inclusion.",
+        "data": {
+          "maximum_audit_records": "Maximum retained audit records",
+          "audit_include_successful_connector_tests": "Include successful connector tests",
+          "audit_include_failed_connector_tests": "Include failed connector tests",
+          "audit_include_grouping_changes": "Include grouping changes",
+          "audit_include_suppression_changes": "Include suppression changes",
+          "audit_include_ai_request_metadata": "Include AI request metadata",
+          "audit_include_n8n_delivery_metadata": "Include n8n delivery metadata"
+        }
+      },
+      "ai_control": {
+        "title": "AI Control",
+        "description": "Choose how much autonomy HAMIE's cleanup engine has. Setting AI Control mode here only expresses intent; its actual automatic-execution power stays capped at Assisted Cleanup until you separately acknowledge AI Control in the Review Queue.",
+        "data": {
+          "ai_operating_mode": "AI operating mode",
+          "ai_auto_execute_low_risk": "Auto-execute low-risk repairs",
+          "ai_auto_execute_medium_risk": "Auto-execute medium-risk repairs",
+          "require_backup_before_bulk_cleanup": "Require backup before bulk registry cleanup",
+          "bulk_cleanup_threshold": "Bulk cleanup threshold (entity count)",
+          "disable_instead_of_delete": "Disable instead of delete",
+          "minimum_unavailable_duration_days": "Minimum unavailable duration before automatic cleanup",
+          "minimum_ai_confidence": "Minimum AI confidence",
+          "dependency_coverage_requirement": "Dependency coverage requirement",
+          "cleanup_exclude_integrations": "Exclude integrations",
+          "cleanup_exclude_devices": "Exclude devices",
+          "cleanup_exclude_entity_domains": "Exclude entity domains",
+          "cleanup_exclude_entity_ids": "Exclude entity IDs",
+          "cleanup_exclude_areas": "Exclude areas",
+          "dry_run_first": "Dry run first"
+        }
+      },
+      "init": {
+        "title": "Configure HAMIE",
+        "menu_options": {
+          "general": "General",
+          "provenance": "Source and Deployment",
+          "findings": "Findings",
+          "grouping": "Grouping",
+          "suppression": "Suppression",
+          "ollama": "Ollama / OpenAI-Compatible LLM",
+          "n8n": "n8n",
+          "mcp": "Home Assistant MCP",
+          "hkg": "House Knowledge Graph",
+          "safety": "Safety",
+          "audit": "Audit",
+          "ai_control": "AI Control",
+          "connector_status": "Connector Status",
+          "test_connections": "Test Connections"
+        }
+      }
+    },
+    "error": {
+      "configure_before_testing": "Configure and enable this connector before testing.",
+      "credential_required": "Enter a replacement credential or choose keep.",
+      "embedded_credential": "Store only a credential-free source or deployment location.",
+      "invalid_host_label": "Remote development hosts must be comma-separated host labels without usernames, paths, ports, or credentials.",
+      "credential_removal_not_confirmed": "Credential removal requires explicit confirmation.",
+      "credential_regeneration_not_confirmed": "Shared-secret regeneration requires explicit confirmation.",
+      "invalid_url": "Enter a credential-free HTTP or HTTPS URL whose host is in the allowed-host policy.",
+      "host_not_allowed": "Explicitly approve this private, local, or remote host before connecting.",
+      "unsafe_host": "Link-local, metadata, multicast, broadcast, reserved, and unspecified addresses are blocked.",
+      "invalid_capabilities": "One or more selected capabilities or automatic event types are unsupported.",
+      "invalid_events": "One or more selected n8n events are unsupported.",
+      "invalid_authentication": "The selected authentication mode is unsupported or incomplete.",
+      "invalid_connector_configuration": "The connector configuration is invalid.",
+      "invalid_grouping_configuration": "Choose only implemented grouping dimensions and a primary dimension that is enabled.",
+      "invalid_grouping_rules": "User-defined grouping rules must use the bounded declarative schema.",
+      "unknown_field": "The request contains an unknown setting.",
+      "invalid_type": "One or more settings have an invalid value type.",
+      "invalid_choice": "Choose one of the supported setting values.",
+      "value_too_long": "One or more settings exceed the bounded text length.",
+      "below_minimum": "One or more settings are below the allowed minimum.",
+      "above_maximum": "One or more settings exceed the allowed maximum.",
+      "locked_policy": "This Phase 0 safety or runtime policy cannot be changed.",
+      "required": "Complete every required setting.",
+      "credential_action_required": "Choose keep, replace, or remove for this credential.",
+      "section_not_editable": "This section is informational and cannot be saved.",
+      "payload_too_large": "The settings request exceeds the bounded payload size.",
+      "invalid_suppression_rule": "The suppression rule is invalid or stale. Snooze requires a timezone-aware expiration.",
+      "no_suppression_rules": "No suppression rules exist.",
+      "unauthorized": "The connector rejected authentication.",
+      "timeout": "The connector test timed out.",
+      "unreachable": "The connector could not be reached.",
+      "tls_error": "TLS validation failed.",
+      "invalid_response": "The connector returned an invalid response.",
+      "schema_validation_failed": "The AI provider's response did not match the required structure, even after HAMIE tried to repair it.",
+      "semantic_validation_failed": "HAMIE rejected the AI provider's response because it violated a safety rule.",
+      "model_unavailable": "The configured model is unavailable.",
+      "model_not_found": "The selected model was not returned by the provider.",
+      "model_discovery_failed": "The provider model list is unavailable or invalid.",
+      "model_list_unavailable": "The provider returned no available models.",
+      "authentication_failed": "The connector rejected the supplied authentication.",
+      "provider_response_not_json": "The provider's HTTP response body was not valid JSON. Check the configured URL, port, and that nothing (like a proxy) is intercepting the request."
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "domain": "hamie",
+  "name": "HAMIE",
+  "codeowners": [],
+  "config_flow": true,
+  "dependencies": [
+    "frontend",
+    "http",
+    "llm"
+  ],
+  "documentation": "https://github.com/Hyabusa64/hamie",
+  "integration_type": "service",
+  "iot_class": "local_push",
+  "requirements": [],
+  "single_config_entry": true,
+  "version": "0.7.0-beta.1"
+}

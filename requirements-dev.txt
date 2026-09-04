@@ -1,0 +1,19 @@
+# Development/test dependencies for HAMIE.
+#
+# Verified: a fresh Python 3.14 virtualenv with exactly this list installed
+# runs the complete backend test suite (776 tests) with zero additional
+# packages -- the real `homeassistant` package is never installed for tests;
+# tests/ha_stubs.py stubs the small slice of the Home Assistant API HAMIE's
+# own tests touch.
+#
+# Install:
+#   python3 -m pip install -r requirements-dev.txt
+#
+# Requires Python 3.12+ (hamie/domain/serialization.py uses PEP 695 generic
+# syntax). Developed and CI-tested against 3.14.
+
+pytest>=8.0
+pytest-asyncio>=0.24
+PyYAML>=6.0
+aiohttp>=3.10
+voluptuous>=0.14

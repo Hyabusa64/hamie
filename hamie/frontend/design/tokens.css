@@ -1,0 +1,90 @@
+/**
+ * HAMIE UI 3.0 — color tokens.
+ *
+ * Reconstructed from design/figma/src/styles/theme.css (the only theme
+ * Figma actually designed — its light-mode block is Figma Make's untouched
+ * factory default, not a HAMIE decision, so light mode below is a genuine
+ * native re-design of the same semantics, not a port).
+ *
+ * Every token prefers a real Home Assistant CSS custom property over a
+ * literal value, per the "never hardcode what HA already supplies" rule.
+ * Names were verified to exist in the installed hass_frontend package for
+ * BOTH the HA 2025.8.0 floor and the 2026.7 current-target release before
+ * use here — none are assumed from memory.
+ *
+ * --ha-color-fill-*-resting and --ha-color-border-* are present at the
+ * 2025.8.0 floor and used directly with no fallback needed. The classic
+ * vars (--primary-color, --card-background-color, --rgb-*, etc.) are
+ * stable across all supported HA releases.
+ */
+
+:host {
+  /* Surfaces */
+  --hamie-surface-app: var(--primary-background-color);
+  --hamie-surface-card: var(--card-background-color);
+  --hamie-surface-sidebar: var(--sidebar-background-color);
+  --hamie-surface-raised: var(--ha-color-fill-neutral-quiet-resting);
+  --hamie-surface-hover: var(--ha-color-fill-neutral-normal-resting);
+
+  /* Text */
+  --hamie-text-primary: var(--primary-text-color);
+  --hamie-text-secondary: var(--secondary-text-color);
+  --hamie-text-disabled: var(--disabled-text-color);
+  --hamie-text-sidebar: var(--sidebar-text-color);
+  --hamie-text-sidebar-selected: var(--sidebar-selected-text-color);
+
+  /* Borders / hairlines — replaces Figma's border-white/[0.04..0.08] overlay ladder */
+  --hamie-border-hairline: var(--ha-color-border-quiet);
+  --hamie-border-normal: var(--ha-color-border-normal);
+  --hamie-border-loud: var(--ha-color-border-loud);
+
+  /* Accent (Figma's blue-600 primary action color) */
+  --hamie-accent: var(--primary-color);
+  --hamie-accent-fill-quiet: var(--ha-color-fill-primary-quiet-resting);
+  --hamie-accent-fill-loud: var(--ha-color-fill-primary-loud-resting);
+  --hamie-accent-icon: var(--sidebar-selected-icon-color);
+  --hamie-accent-on: var(--text-primary-color); /* text/icon color for use atop a loud accent fill */
+
+  /*
+   * Status semantics — Figma's `Status` union (App.tsx STATUS const):
+   * healthy / warning / critical / info / unknown / active / offline /
+   * running / idle. Each becomes a foreground color + a quiet fill,
+   * matching Figma's dot+text+bg-tint Chip composition exactly.
+   */
+  --hamie-status-healthy: var(--success-color);
+  --hamie-status-healthy-fill: var(--ha-color-fill-success-quiet-resting);
+  --hamie-status-warning: var(--warning-color);
+  --hamie-status-warning-fill: var(--ha-color-fill-warning-quiet-resting);
+  --hamie-status-critical: var(--error-color);
+  --hamie-status-critical-fill: var(--ha-color-fill-danger-quiet-resting);
+  --hamie-status-info: var(--info-color);
+  --hamie-status-info-fill: var(--ha-color-fill-primary-quiet-resting);
+  --hamie-status-unknown: var(--disabled-text-color);
+  --hamie-status-unknown-fill: var(--ha-color-fill-neutral-quiet-resting);
+  --hamie-status-active: var(--info-color);
+  --hamie-status-active-fill: var(--ha-color-fill-primary-quiet-resting);
+  --hamie-status-offline: var(--disabled-text-color);
+  --hamie-status-offline-fill: var(--ha-color-fill-neutral-quiet-resting);
+  --hamie-status-running: var(--success-color);
+  --hamie-status-running-fill: var(--ha-color-fill-success-quiet-resting);
+  --hamie-status-idle: var(--disabled-text-color);
+  --hamie-status-idle-fill: var(--ha-color-fill-neutral-quiet-resting);
+  /* "Needs evidence" (maintenance-console redesign): no HA semantic
+   * token maps to purple, same as the Overview activity feed's existing
+   * AI-activity dot -- reuses that exact literal for consistency. */
+  --hamie-status-evidence: #a78bfa;
+  --hamie-status-evidence-fill: rgba(167, 139, 250, 0.16);
+
+  /* Priority (Recommendations screen: high / medium / low) */
+  --hamie-priority-high: var(--error-color);
+  --hamie-priority-high-fill: var(--ha-color-fill-danger-quiet-resting);
+  --hamie-priority-medium: var(--warning-color);
+  --hamie-priority-medium-fill: var(--ha-color-fill-warning-quiet-resting);
+  --hamie-priority-low: var(--disabled-text-color);
+  --hamie-priority-low-fill: var(--ha-color-fill-neutral-quiet-resting);
+
+  /* Destructive actions (Figma's Btn variant="danger") */
+  --hamie-danger: var(--error-color);
+  --hamie-danger-fill: var(--ha-color-fill-danger-quiet-resting);
+  --hamie-danger-border: var(--ha-color-border-danger-normal);
+}

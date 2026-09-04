@@ -1,0 +1,70 @@
+scan:
+  name: Scan
+  description: Run a read-only HAMIE entity-state evaluation.
+acknowledge:
+  name: Acknowledge finding
+  description: Record a HAMIE-only acknowledgement of a finding.
+  fields: &review_fields
+    finding_id:
+      name: Finding ID
+      description: Stable HAMIE finding identifier.
+      required: true
+      example: hamie_finding_id
+      selector:
+        text: {}
+    expected_revision:
+      name: Expected revision
+      description: Current finding content revision used for concurrency checks.
+      required: true
+      example: 1
+      selector:
+        number:
+          min: 1
+          mode: box
+    idempotency_token:
+      name: Idempotency token
+      description: Caller-supplied token that makes retries safe.
+      required: true
+      example: review_request_id
+      selector:
+        text: {}
+snooze:
+  name: Snooze finding
+  description: Snooze a finding in HAMIE-owned review state.
+  fields:
+    <<: *review_fields
+    snooze_until:
+      name: Snooze until
+      description: Time after which the local snooze may be reconsidered.
+      required: true
+      example: "2026-08-01T12:00:00Z"
+      selector:
+        datetime: {}
+    reason:
+      name: Reason
+      description: Optional bounded local review note.
+      required: false
+      selector:
+        text: {}
+retain:
+  name: Retain finding subject
+  description: Record a HAMIE-only decision to retain the finding subject.
+  fields:
+    <<: *review_fields
+    reason:
+      name: Reason
+      description: Optional bounded local review note.
+      required: false
+      selector:
+        text: {}
+dismiss:
+  name: Dismiss finding
+  description: Dismiss a finding in HAMIE-owned review state.
+  fields:
+    <<: *review_fields
+    reason:
+      name: Reason
+      description: Optional bounded local review note.
+      required: false
+      selector:
+        text: {}

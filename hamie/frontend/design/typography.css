@@ -1,0 +1,71 @@
+/**
+ * HAMIE UI 3.0 — typography tokens.
+ *
+ * Figma (fonts.css) loads Inter + JetBrains Mono from Google Fonts and
+ * hardcodes an idiosyncratic px scale (10/11/13/22px, mixed with a few
+ * Tailwind defaults). We deliberately do not port the Google Fonts import
+ * or the literal px values: HA already ships a font-size/family/weight
+ * system (--ha-font-*), verified present at both the HA 2025.8.0 floor and
+ * the 2026.7 current-target release, and --ha-font-size-scale makes every
+ * size respect the user's HA-wide font-scaling accessibility setting —
+ * something Figma's fixed px values cannot do. Loading a second font
+ * family from Google Fonts would also fight whatever the active HA theme
+ * declares. This is a "Home Assistant platform limitation" + accessibility
+ * deviation per the similarity rules, not a stylistic preference.
+ *
+ * Post-deployment correction: the first mapping below snapped each Figma
+ * size to the *nearest* HA token by raw pixel proximity (Figma's dominant
+ * 11px body text landed on HA's xs=10px), which reproduced Figma's dense,
+ * small-text aesthetic instead of HA's own. Real usage counted directly
+ * across HA's own frontend_latest bundle tells a different story: HA's
+ * single most common font-size across its entire codebase is
+ * --ha-font-size-m (14px, ~204 uses), with xs (10px) the *least* common
+ * of the main tiers (~62 uses) -- HA reserves its smallest sizes for
+ * captions/badges, not primary content. HAMIE had it backwards: 141 of
+ * its own primary-content call sites (table cells, card body text,
+ * recommendation text, dialog copy) were on the old --hamie-text-micro
+ * (10px), making ordinary content render at HA's least-used, caption-only
+ * size. The scale below is retuned so HAMIE's dominant body-text tier
+ * lands on HA's own dominant size, with a genuinely small --hamie-text-
+ * caption tier introduced for the minority of call sites (uppercase
+ * tracked column headers, tiny numeric badges) that legitimately should
+ * stay small -- this is a token-correctness fix, not a redesign; no
+ * layout, component, or visual structure changes.
+ */
+
+:host {
+  /*
+   * --ha-font-family-{body,code,heading} are verified present at the
+   * 2025.8.0 floor, so these literal fallbacks are a last-resort safety
+   * net only — they should never actually engage on a supported HA
+   * version. No unverified intermediate HA variable is referenced here.
+   */
+  --hamie-font-body: var(--ha-font-family-body, system-ui, sans-serif);
+  --hamie-font-code: var(--ha-font-family-code, monospace);
+  --hamie-font-heading: var(--ha-font-family-heading, var(--hamie-font-body));
+
+  --hamie-weight-normal: var(--ha-font-weight-normal, 400);
+  --hamie-weight-medium: var(--ha-font-weight-medium, 500);
+  --hamie-weight-bold: var(--ha-font-weight-bold, 700);
+
+  /* Genuinely small text only: uppercase tracked column/section labels,
+   * tiny numeric badges (e.g. "priority 3"). HA's own least-used tier --
+   * reserved for captions, never primary content. */
+  --hamie-text-caption: var(--ha-font-size-xs, 10px);
+  /* Secondary/meta text: timestamps, helper descriptions, sub-labels
+   * under a primary value. HA's own commonly-used secondary-text size. */
+  --hamie-text-micro: var(--ha-font-size-s, 12px);
+  /* Primary/body text -- table cells, card content, dialog copy, form
+   * inputs. Matches HA's own single most common font-size across its
+   * entire frontend (--ha-font-size-m, ~204 uses, its dominant choice). */
+  --hamie-text-small: var(--ha-font-size-m, 14px);
+  /* Headings (h1, section titles) -- one full HA step above body text now
+   * that body text itself moved up to m. */
+  --hamie-text-base: var(--ha-font-size-l, 16px);
+  /* Figma's large metric-value size (22px) */
+  --hamie-text-metric: var(--ha-font-size-2xl, 24px);
+  /* Figma's HealthArc score size (text-3xl, 30px) */
+  --hamie-text-display: var(--ha-font-size-3xl, 28px);
+
+  --hamie-tracking-label: 0.05em; /* Figma's tracking-wider on uppercase labels; HA has no equivalent token */
+}

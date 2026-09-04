@@ -1,0 +1,33 @@
+name: Analyzer proposal
+description: Propose a new deterministic analyzer (a new class of problem HAMIE can detect)
+labels: ["enhancement", "analyzer"]
+body:
+  - type: textarea
+    id: problem-class
+    attributes:
+      label: What class of problem does this detect?
+      description: Describe the configuration/entity/automation pattern this would find, generically — not your specific installation's instance of it.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What evidence does it need?
+      description: Registries, config files, recorder history? See hamie/analysis/analyzers/ for existing examples.
+    validations:
+      required: true
+
+  - type: textarea
+    id: why-not-existing
+    attributes:
+      label: Why don't the existing analyzers already cover this?
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: This analyzer would emit Finding objects only — grouping, prioritization, and remediation are the incident layer's job, not this analyzer's.
